@@ -1,0 +1,70 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Step 1
+      id: step-1
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Step 1
+        setup-command: sleep 20
+        command: "[ $(cat .github/script/STEP) == 1 ]"
+        timeout: 10
+        max-score: 1
+    - name: Step 2
+      id: step-2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Step 2
+        setup-command: sleep 20
+        command: "[ $(cat .github/script/STEP) == 2 ]"
+        timeout: 10
+        max-score: 1
+    - name: Step 3
+      id: step-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Step 3
+        setup-command: sleep 20
+        command: "[ $(cat .github/script/STEP) == 3 ] "
+        timeout: 10
+        max-score: 1
+    - name: Step 4
+      id: step-4
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Step 4
+        setup-command: sleep 20
+        command: "[ $(cat .github/script/STEP) == 4 ] "
+        timeout: 10
+        max-score: 1
+    - name: Completed
+      id: completed
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Completed
+        setup-command: sleep 20
+        command: "[ $(cat .github/script/STEP) == X ] "
+        timeout: 10
+        max-score: 6
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        STEP-1_RESULTS: "${{steps.step-1.outputs.result}}"
+        STEP-2_RESULTS: "${{steps.step-2.outputs.result}}"
+        STEP-3_RESULTS: "${{steps.step-3.outputs.result}}"
+        STEP-4_RESULTS: "${{steps.step-4.outputs.result}}"
+        COMPLETED_RESULTS: "${{steps.completed.outputs.result}}"
+      with:
+        runners: step-1,step-2,step-3,step-4,completed

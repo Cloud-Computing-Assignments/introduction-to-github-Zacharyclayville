@@ -19,7 +19,7 @@ jobs:
       with:
         test-name: Step 1
         setup-command: sleep 20
-        command: "[ $(cat .github/script/STEP) == 1 ]"
+        command: "[ $(cat .github/script/STEP) = 1 ]"
         timeout: 10
         max-score: 1
     - name: Step 2
@@ -28,7 +28,7 @@ jobs:
       with:
         test-name: Step 2
         setup-command: sleep 20
-        command: "[ $(cat .github/script/STEP) == 2 ]"
+        command: "[ $(cat .github/script/STEP) = 2 ]"
         timeout: 10
         max-score: 1
     - name: Step 3
@@ -37,7 +37,7 @@ jobs:
       with:
         test-name: Step 3
         setup-command: sleep 20
-        command: "[ $(cat .github/script/STEP) == 3 ] "
+        command: "[ $(cat .github/script/STEP) = 3 ] "
         timeout: 10
         max-score: 1
     - name: Step 4
@@ -46,7 +46,7 @@ jobs:
       with:
         test-name: Step 4
         setup-command: sleep 20
-        command: "[ $(cat .github/script/STEP) == 4 ] "
+        command: "[ $(cat .github/script/STEP) = 4 ] "
         timeout: 10
         max-score: 1
     - name: Completed
@@ -55,7 +55,7 @@ jobs:
       with:
         test-name: Completed
         setup-command: sleep 20
-        command: "[ $(cat .github/script/STEP) == X ] "
+        command: "[ $(cat .github/script/STEP) = X ] "
         timeout: 10
         max-score: 6
     - name: Autograding Reporter

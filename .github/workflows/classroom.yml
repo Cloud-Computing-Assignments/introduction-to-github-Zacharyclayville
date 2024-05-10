@@ -55,7 +55,7 @@ jobs:
       with:
         test-name: Completed
         setup-command: sleep 20
-        command: "[[ $(cat .github/script/STEP) == X ]]"
+        command: "[ $(cat .github/script/STEP) = X ]"
         timeout: 10
         max-score: 6
     - name: Autograding Reporter

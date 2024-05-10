@@ -13,12 +13,52 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Completed
-      id: completed
+    - name: Step 1
+      id: step-1
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Completed
+        test-name: Step 1
         setup-command: sleep 20
+        command: "[ $(cat .github/steps/-step.txt) -ge 1 ] || [ $(cat .github/steps/-step.txt)
+          = X ]"
+        timeout: 10
+        max-score: 1
+    - name: Step 2
+      id: step-2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Step 2
+        setup-command: sleep 5
+        command: "[ $(cat .github/steps/-step.txt) -ge 1 ] || [ $(cat .github/steps/-step.txt)
+          = X ]"
+        timeout: 10
+        max-score: 1
+    - name: Step 3
+      id: step-3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Step 3
+        setup-command: sleep 5
+        command: "[ $(cat .github/steps/-step.txt) -ge 1 ] || [ $(cat .github/steps/-step.txt)
+          = X ]"
+        timeout: 10
+        max-score: 1
+    - name: 'Step 4 '
+      id: step-4
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Step 4 '
+        setup-command: sleep 5
+        command: "[ $(cat .github/steps/-step.txt) -ge 1 ] || [ $(cat .github/steps/-step.txt)
+          = X ]"
+        timeout: 10
+        max-score: 1
+    - name: Complete
+      id: complete
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Complete
+        setup-command: sleep 2
         command: "[ $(cat .github/steps/-step.txt) -ge 1 ] || [ $(cat .github/steps/-step.txt)
           = X ]"
         timeout: 10
@@ -26,6 +66,10 @@ jobs:
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        COMPLETED_RESULTS: "${{steps.completed.outputs.result}}"
+        STEP-1_RESULTS: "${{steps.step-1.outputs.result}}"
+        STEP-2_RESULTS: "${{steps.step-2.outputs.result}}"
+        STEP-3_RESULTS: "${{steps.step-3.outputs.result}}"
+        STEP-4_RESULTS: "${{steps.step-4.outputs.result}}"
+        COMPLETE_RESULTS: "${{steps.complete.outputs.result}}"
       with:
-        runners: completed
+        runners: step-1,step-2,step-3,step-4,complete
